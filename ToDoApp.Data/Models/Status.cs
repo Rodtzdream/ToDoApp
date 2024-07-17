@@ -1,9 +1,15 @@
-﻿namespace ToDoApp.Data.Models
-{
-    public class Status
-    {
-        public int Id { get; set; }
+﻿namespace ToDoApp.Data.Models;
 
-        public string Name { get; set; }
-    }
+public enum StatusEnum
+{
+    ToDo = 1,
+    InProgress = 2,
+    Done = 3
+}
+
+public class Status
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
 }

@@ -16,7 +16,10 @@ public class ToDoItem
 
     public int StatusId { get; set; }
 
-    public Status Status { get; set; }
+    public StatusEnum Status
+    {
+        set => StatusId = (int)value;
+    }
 
     public DateTime DueDate { get; set; }
 

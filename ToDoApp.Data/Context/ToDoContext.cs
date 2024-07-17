@@ -31,8 +31,8 @@ public class ToDoContext: DbContext
 
         modelBuilder.Entity<User>()
             .HasMany(t => t.ToDoItems)
-            .WithOne(t => t.User)
-            .HasForeignKey(t => t.UserId);
+            .WithOne(t => t.Assignee)
+            .HasForeignKey(t => t.AssigneeId);
 
         base.OnModelCreating(modelBuilder);
 

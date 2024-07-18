@@ -5,28 +5,31 @@ var context = new ToDoContext();
 
 //var user = new User
 //{
-//    Name = "John Doe",
-//    ToDoItems = new List<ToDoItem>
-//    {
-//        new ToDoItem
-//        {
-//            Description = "Buy milk",
-//            DueDate = DateTime.Now.AddDays(1),
-//            IsDone = false
-//        },
-//        new ToDoItem
-//        {
-//            Description = "Buy bread",
-//            DueDate = DateTime.Now.AddDays(1),
-//            IsDone = false
-//        }
-//    }
+//    Name = "John Doe"
 //};
 
-//context.Users.Add(user);
+//var board = new Board
+//{
+//    Name = "My Board"
+//};
 
-var item = await context.ToDoItems.FindAsync(2);
-item.IsDone = true;
+//var todoItem = new ToDoItem
+//{
+//    Title = "My First Task",
+//    Description = "This is my first task",
+//    CreatedAt = DateTime.Now,
+//    DueDate = DateTime.Now.AddDays(1),
+//    Status = StatusEnum.ToDo,
+//    Assignee = user,
+//    Board = board
+//};
+
+//context.ToDoItems.Add(todoItem);
+
+//await context.SaveChangesAsync();
+
+var item = await context.ToDoItems.FindAsync(1);
+item.Status = StatusEnum.InProgress;
 ;
 await context.SaveChangesAsync();
 ;

@@ -3,18 +3,14 @@ using ToDoApp.Data.Models;
 
 namespace ToDoApp.Data.Context;
 
-public class ToDoContext: DbContext
+public class ToDoContext : DbContext
 {
     public DbSet<ToDoItem> ToDoItems { get; set; }
 
     public DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public ToDoContext(DbContextOptions<ToDoContext> options) : base(options)
     {
-        optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ToDoAppDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False")
-            .LogTo(Console.WriteLine);
-
-        base.OnConfiguring(optionsBuilder);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

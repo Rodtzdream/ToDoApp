@@ -30,10 +30,32 @@ namespace ToDoApp.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/status")]
-        public async Task<ActionResult> UpdateStatusAsynk(int id)
+        [HttpPut("{id}/title-description")]
+        public async Task<ActionResult> UpdateTitleAndDescriptionAsynk(int id, ChangeToDoItemDto itemDto)
         {
-            await _service.UpdateStatusAsync(id);
+            await _service.UpdateTitleAndDescriptionAsync(id, itemDto);
+            return Ok();
+        }
+
+        [HttpPut("{id}/status")]
+        public async Task<ActionResult> UpdateStatusAsynk(int id, UpdateStatusDto updateStatusDto)
+        {
+            await _service.UpdateStatusAsync(id, updateStatusDto);
+            return Ok();
+        }
+
+        [HttpPut("{id}/assignee")]
+        public async Task<ActionResult> UpdateAssigneeAsynk(int id, int assigneeDto)
+        {
+            await _service.UpdateAssigneeAsync(id, assigneeDto);
+            return Ok();
+        }
+        
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsynk(int id)
+        {
+            await _service.DeleteAsync(id);
             return Ok();
         }
     }

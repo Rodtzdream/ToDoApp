@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using ToDoApp.Data.Context;
 using ToDoApp.Data.Models;
 using ToDoApp.Services.Dtos;
@@ -39,7 +40,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateStatusAsync(int id)
+    public async Task UpdateTitleAndDescriptionAsync(int id, ChangeToDoItemDto toDoItemDto)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -47,14 +48,57 @@ public class ToDoItemService : IToDoItemService
 
         if (item.AssigneeId != _currentUserService.AssigneeId) { }
 
-        if (item.StatusId == (int)StatusEnum.ToDo)
+        item.Title = toDoItemDto.Title;
+        item.Description = toDoItemDto.Description;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateStatusAsync(int id, UpdateStatusDto newStatus)
+    {
+        var item = await _context.ToDoItems.FindAsync(id);
+
+        if (item is null) { }
+
+        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+
+        var validTransitions = new Dictionary<StatusEnum, HashSet<StatusEnum>>()
+    {
+        { StatusEnum.ToDo, new HashSet<StatusEnum> { StatusEnum.InProgress } },
+        { StatusEnum.InProgress, new HashSet<StatusEnum> { StatusEnum.ToDo, StatusEnum.Done } },
+        { StatusEnum.Done, new HashSet<StatusEnum>() }
+    };
+
+        if (!validTransitions.ContainsKey((StatusEnum)item.StatusId) || !validTransitions[(StatusEnum)item.StatusId].Contains(newStatus.StatusId))
         {
-            item.Status = StatusEnum.InProgress;
+            throw new ArgumentException("Invalid status transition.");
         }
-        else if (item.StatusId == (int)StatusEnum.InProgress)
-        {
-            item.Status = StatusEnum.Done;
-        }
+
+        item.Status = newStatus.StatusId;
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAssigneeAsync(int id, int assigneeId)
+    {
+        var item = await _context.ToDoItems.FindAsync(id);
+
+        if (item is null) { }
+
+        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+
+        item.AssigneeId = assigneeId;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        var item = await _context.ToDoItems.FindAsync(id);
+
+        if (item is null) { }
+
+        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+
+        _context.ToDoItems.Remove(item);
         await _context.SaveChangesAsync();
     }
 }

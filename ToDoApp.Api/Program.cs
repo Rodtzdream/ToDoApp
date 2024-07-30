@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data.Context;
+using ToDoApp.Services.Interfaces;
+using ToDoApp.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ builder.Services.AddDbContext<ToDoContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserServiceMock>();
 
 var app = builder.Build();
 

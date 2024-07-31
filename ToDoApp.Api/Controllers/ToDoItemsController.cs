@@ -45,9 +45,9 @@ namespace ToDoApp.Api.Controllers
         }
 
         [HttpPut("{id}/assignee")]
-        public async Task<ActionResult> UpdateAssigneeAsynk(int id, int assigneeDto)
+        public async Task<ActionResult> UpdateAssigneeAsynk(int id, int newAssignee)
         {
-            await _service.UpdateAssigneeAsync(id, assigneeDto);
+            await _service.UpdateAssigneeAsync(id, newAssignee);
             return Ok();
         }
         

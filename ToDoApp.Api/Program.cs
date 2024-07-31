@@ -20,6 +20,7 @@ builder.Services.AddDbContext<ToDoContext>(options =>
 
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserServiceMock>();
+builder.Services.AddScoped<IBoardService, BoardService>();
 
 var app = builder.Build();
 

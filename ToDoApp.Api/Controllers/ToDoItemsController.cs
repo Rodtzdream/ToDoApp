@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ToDoApp.Data.Context;
+﻿using Microsoft.AspNetCore.Mvc;
 using ToDoApp.Data.Models;
+using ToDoApp.Services.Dtos;
+using ToDoApp.Services.Interfaces;
 
 namespace ToDoApp.Api.Controllers
 {
@@ -10,18 +9,54 @@ namespace ToDoApp.Api.Controllers
     [ApiController]
     public class ToDoItemsController : ControllerBase
     {
-        private readonly ToDoContext _context;
+        private readonly IToDoItemService _service;
 
-        public ToDoItemsController(ToDoContext context)
+        public ToDoItemsController(IToDoItemService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDoItem>>> GetAsynk()
         {
-            var items = await _context.ToDoItems.ToListAsync();
+            var items = await _service.GetAsynk();
             return Ok(items);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateAsynk(CreateToDoItemDto itemDto)
+        {
+            await _service.CreateAsync(itemDto);
+            return Ok();
+        }
+
+        [HttpPut("{id}/title-description")]
+        public async Task<ActionResult> UpdateTitleAndDescriptionAsynk(int id, ChangeToDoItemDto itemDto)
+        {
+            await _service.UpdateTitleAndDescriptionAsync(id, itemDto);
+            return Ok();
+        }
+
+        [HttpPut("{id}/status")]
+        public async Task<ActionResult> UpdateStatusAsynk(int id, UpdateStatusDto updateStatusDto)
+        {
+            await _service.UpdateStatusAsync(id, updateStatusDto);
+            return Ok();
+        }
+
+        [HttpPut("{id}/assignee")]
+        public async Task<ActionResult> UpdateAssigneeAsynk(int id, int newAssignee)
+        {
+            await _service.UpdateAssigneeAsync(id, newAssignee);
+            return Ok();
+        }
+        
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsynk(int id)
+        {
+            await _service.DeleteAsync(id);
+            return Ok();
         }
     }
 }

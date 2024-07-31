@@ -1,4 +1,6 @@
-﻿namespace ToDoApp.Data.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace ToDoApp.Data.Models;
 
 public class ToDoItem
 {
@@ -10,6 +12,7 @@ public class ToDoItem
 
     public int BoardId { get; set; }
 
+    [JsonIgnore]
     public Board Board { get; set; }
 
     public DateTime CreatedAt { get; set; }
@@ -25,5 +28,6 @@ public class ToDoItem
 
     public int AssigneeId { get; set; }
 
+    [JsonIgnore]
     public User Assignee { get; set; }
 }

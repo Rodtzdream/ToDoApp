@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using ToDoApp.Data.Context;
 using ToDoApp.Data.Models;
 using ToDoApp.Services.Dtos;
+using ToDoApp.Services.Exceptions;
 using ToDoApp.Services.Interfaces;
 
 namespace ToDoApp.Services.Services;
@@ -57,9 +57,15 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) { }
+        if (item is null)
+        {
+            throw new ToDoItemNotFoundException(id);
+        }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+        if (item.AssigneeId != _currentUserService.AssigneeId)
+        {
+            throw new ToDoItemHasDifferentOwnerException();
+        }
 
         var validTransitions = new Dictionary<StatusEnum, HashSet<StatusEnum>>()
     {

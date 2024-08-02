@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateToDoItemDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<ChangeToDoItemDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBoardDtoValidator>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

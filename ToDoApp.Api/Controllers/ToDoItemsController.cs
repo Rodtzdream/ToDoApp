@@ -31,21 +31,21 @@ namespace ToDoApp.Api.Controllers
         }
 
         [HttpPut("{id}/title-description")]
-        public async Task<ActionResult> UpdateTitleAndDescriptionAsynk(int id, ChangeToDoItemDto itemDto)
+        public async Task<ActionResult> UpdateTitleAndDescriptionAsynk(StatusEnum id, ChangeToDoItemDto itemDto)
         {
             await _service.UpdateTitleAndDescriptionAsync(id, itemDto);
             return Ok();
         }
 
         [HttpPut("{id}/status")]
-        public async Task<ActionResult> UpdateStatusAsynk(int id, UpdateStatusDto updateStatusDto)
+        public async Task<ActionResult> UpdateStatusAsynk(StatusEnum id, UpdateStatusDto updateStatusDto)
         {
             await _service.UpdateStatusAsync(id, updateStatusDto);
             return Ok();
         }
 
         [HttpPut("{id}/assignee")]
-        public async Task<ActionResult> UpdateAssigneeAsynk(int id, int newAssignee)
+        public async Task<ActionResult> UpdateAssigneeAsynk(StatusEnum id, int newAssignee)
         {
             await _service.UpdateAssigneeAsync(id, newAssignee);
             return Ok();
@@ -53,7 +53,7 @@ namespace ToDoApp.Api.Controllers
         
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsynk(int id)
+        public async Task<ActionResult> DeleteAsynk(StatusEnum id)
         {
             await _service.DeleteAsync(id);
             return Ok();

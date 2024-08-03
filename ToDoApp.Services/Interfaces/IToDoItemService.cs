@@ -9,11 +9,11 @@ public interface IToDoItemService
 
     Task CreateAsync(CreateToDoItemDto createToDoItemDto);
 
-    Task UpdateTitleAndDescriptionAsync(int id, ChangeToDoItemDto toDoItemDto);
+    Task UpdateTitleAndDescriptionAsync(StatusEnum id, ChangeToDoItemDto toDoItemDto);
 
-    Task UpdateStatusAsync(int id, UpdateStatusDto newStatus);
+    Task UpdateStatusAsync(StatusEnum id, UpdateStatusDto newStatus);
 
-    Task UpdateAssigneeAsync(int id, int assigneeId);
+    Task UpdateAssigneeAsync(StatusEnum id, int assigneeId);
 
-    Task DeleteAsync(int id);
+    Task DeleteAsync(StatusEnum id);
 }

@@ -14,12 +14,7 @@ public class ToDoItem
 
     public DateTime CreatedAt { get; set; }
 
-    public int StatusId { get; set; }
-
-    public StatusEnum Status
-    {
-        set => StatusId = (int)value;
-    }
+    public StatusEnum StatusId { get; set; }
 
     public DateTime DueDate { get; set; }
 

@@ -32,7 +32,7 @@ public class ToDoItemService : IToDoItemService
             Title = createToDoItemDto.Title,
             Description = createToDoItemDto.Description,
             DueDate = createToDoItemDto.DueDate,
-            Status = StatusEnum.ToDo,
+            StatusId = StatusEnum.ToDo,
             BoardId = createToDoItemDto.BoardId,
             AssigneeId = _currentUserService.AssigneeId
         };
@@ -40,7 +40,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateTitleAndDescriptionAsync(int id, ChangeToDoItemDto toDoItemDto)
+    public async Task UpdateTitleAndDescriptionAsync(StatusEnum id, ChangeToDoItemDto toDoItemDto)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -59,7 +59,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateStatusAsync(int id, UpdateStatusDto newStatus)
+    public async Task UpdateStatusAsync(StatusEnum id, UpdateStatusDto newStatus)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -80,17 +80,17 @@ public class ToDoItemService : IToDoItemService
         { StatusEnum.Done, new HashSet<StatusEnum>() }
     };
 
-        if (!validTransitions.ContainsKey((StatusEnum)item.StatusId) || !validTransitions[(StatusEnum)item.StatusId].Contains(newStatus.StatusId))
+        if (!validTransitions.ContainsKey(item.StatusId) || !validTransitions[item.StatusId].Contains(newStatus.StatusId))
         {
             throw new ToDoItemStatusNotFoundException();
         }
 
-        item.Status = newStatus.StatusId;
+        item.StatusId = newStatus.StatusId;
 
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAssigneeAsync(int id, int assigneeId)
+    public async Task UpdateAssigneeAsync(StatusEnum id, int assigneeId)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -108,7 +108,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(StatusEnum id)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 

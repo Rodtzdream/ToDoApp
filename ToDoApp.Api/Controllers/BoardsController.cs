@@ -21,10 +21,9 @@ namespace ToDoApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Board>>> GetAsynk()
+        public async Task<ActionResult<IEnumerable<BoardDto>>> GetAsynk()
         {
-            var boards = await _context.Boards.Include(b => b.ToDoItems).ToListAsync();
-            return Ok(boards);
+            return await _service.GetAsynk();
         }
 
         [HttpPost]

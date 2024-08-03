@@ -15,9 +15,25 @@ public class BoardService : IBoardService
         _context = toDoContext;
     }
 
-    public async Task<List<Board>> GetAsynk()
+    public async Task<List<BoardDto>> GetAsynk()
     {
-        return await _context.Boards.ToListAsync();
+        return await _context.Boards.Select(board => new BoardDto
+        {
+            Id = board.Id,
+            Name = board.Name,
+            CreatedAt = board.CreatedAt,
+            ToDoItems = board.ToDoItems.Select(toDoItem => new ToDoItemDto
+            {
+                Id = toDoItem.Id,
+                Title = toDoItem.Title,
+                Description = toDoItem.Description,
+                CreatedAt = toDoItem.CreatedAt,
+                DueDate = toDoItem.DueDate,
+                StatusId = toDoItem.StatusId,
+                BoardId = toDoItem.BoardId,
+                AssigneeId = toDoItem.AssigneeId
+            }).ToList()
+        }).ToListAsync();
     }
 
     public Task CreateAsync(CreateBoardDto createBoardDto)

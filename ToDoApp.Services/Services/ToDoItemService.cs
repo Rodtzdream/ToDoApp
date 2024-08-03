@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using ToDoApp.Data.Context;
 using ToDoApp.Data.Models;
 using ToDoApp.Services.Dtos;
+using ToDoApp.Services.Exceptions;
 using ToDoApp.Services.Interfaces;
 
 namespace ToDoApp.Services.Services;
@@ -44,9 +44,15 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) { }
+        if (item is null) 
+        {
+            throw new ToDoItemNotFoundException(id);
+        }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        {
+            throw new ToDoItemHasDifferentOwnerException();
+        }
 
         item.Title = toDoItemDto.Title;
         item.Description = toDoItemDto.Description;
@@ -57,9 +63,15 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) { }
+        if (item is null)
+        {
+            throw new ToDoItemNotFoundException(id);
+        }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+        if (item.AssigneeId != _currentUserService.AssigneeId)
+        {
+            throw new ToDoItemHasDifferentOwnerException();
+        }
 
         var validTransitions = new Dictionary<StatusEnum, HashSet<StatusEnum>>()
     {
@@ -70,7 +82,7 @@ public class ToDoItemService : IToDoItemService
 
         if (!validTransitions.ContainsKey((StatusEnum)item.StatusId) || !validTransitions[(StatusEnum)item.StatusId].Contains(newStatus.StatusId))
         {
-            throw new ArgumentException("Invalid status transition.");
+            throw new ToDoItemStatusNotFoundException();
         }
 
         item.Status = newStatus.StatusId;
@@ -82,9 +94,15 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) { }
+        if (item is null) 
+        {
+            throw new ToDoItemNotFoundException(id);
+        }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        {
+            throw new ToDoItemHasDifferentOwnerException();
+        }
 
         item.AssigneeId = assigneeId;
         await _context.SaveChangesAsync();
@@ -94,9 +112,15 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) { }
+        if (item is null) 
+        {
+            throw new ToDoItemNotFoundException(id);
+        }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) { }
+        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        {
+            throw new ToDoItemHasDifferentOwnerException();
+        }
 
         _context.ToDoItems.Remove(item);
         await _context.SaveChangesAsync();

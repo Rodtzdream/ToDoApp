@@ -40,7 +40,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateTitleAndDescriptionAsync(int id, ChangeToDoItemDto toDoItemDto)
+    public async Task UpdateTitleAsync(int id, ChangeToDoItemTitleDto changeToDoItemTitleDto)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -54,8 +54,25 @@ public class ToDoItemService : IToDoItemService
             throw new ToDoItemHasDifferentOwnerException();
         }
 
-        item.Title = toDoItemDto.Title;
-        item.Description = toDoItemDto.Description;
+        item.Title = changeToDoItemTitleDto.Title;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateDescriptionAsync(int id, ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto)
+    {
+        var item = await _context.ToDoItems.FindAsync(id);
+
+        if (item is null) 
+        {
+            throw new ToDoItemNotFoundException(id);
+        }
+
+        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        {
+            throw new ToDoItemHasDifferentOwnerException();
+        }
+
+        item.Description = changeToDoItemDescriptionDto.Description;
         await _context.SaveChangesAsync();
     }
 

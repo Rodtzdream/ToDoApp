@@ -9,7 +9,9 @@ public interface IToDoItemService
 
     Task CreateAsync(CreateToDoItemDto createToDoItemDto);
 
-    Task UpdateTitleAndDescriptionAsync(int id, ChangeToDoItemDto toDoItemDto);
+    Task UpdateTitleAsync(int id, ChangeToDoItemTitleDto changeToDoItemTitleDto);
+
+    Task UpdateDescriptionAsync(int id, ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto);
 
     Task UpdateStatusAsync(int id, UpdateStatusDto newStatus);
 

@@ -40,7 +40,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateTitleAndDescriptionAsync(StatusEnum id, ChangeToDoItemDto toDoItemDto)
+    public async Task UpdateTitleAndDescriptionAsync(int id, ChangeToDoItemDto toDoItemDto)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -59,7 +59,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateStatusAsync(StatusEnum id, UpdateStatusDto newStatus)
+    public async Task UpdateStatusAsync(int id, UpdateStatusDto newStatus)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -90,7 +90,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAssigneeAsync(StatusEnum id, int assigneeId)
+    public async Task UpdateAssigneeAsync(int id, int assigneeId)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
@@ -108,7 +108,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(StatusEnum id)
+    public async Task DeleteAsync(int id)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 

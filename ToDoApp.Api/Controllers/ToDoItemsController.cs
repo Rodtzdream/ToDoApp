@@ -17,10 +17,44 @@ namespace ToDoApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ToDoItem>>> GetAsynk()
+        public async Task<ActionResult<IEnumerable<GetToDoItemDto>>> GetAsynk()
         {
             var items = await _service.GetAsynk();
-            return Ok(items);
+            var itemsDto = items.Select(x => new GetToDoItemDto
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                CreatedAt = x.CreatedAt,
+                DueDate = x.DueDate,
+                StatusId = x.StatusId,
+                BoardId = x.BoardId,
+                AssigneeId = x.AssigneeId
+            });
+            return Ok(itemsDto);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetToDoItemDto>> GetByIdAsynk(int id)
+        {
+            var item = await _service.GetByIdAsync(id);
+            if (item is null)
+            {
+                return NotFound();
+            }
+
+            var itemDto = new GetToDoItemDto
+            {
+                Id = item.Id,
+                Title = item.Title,
+                Description = item.Description,
+                CreatedAt = item.CreatedAt,
+                DueDate = item.DueDate,
+                StatusId = item.StatusId,
+                BoardId = item.BoardId,
+                AssigneeId = item.AssigneeId
+            };
+            return Ok(itemDto);
         }
 
         [HttpPost]
@@ -57,7 +91,6 @@ namespace ToDoApp.Api.Controllers
             await _service.UpdateAssigneeAsync(id, newAssignee);
             return Ok();
         }
-        
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAsynk(int id)

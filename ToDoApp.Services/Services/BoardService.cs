@@ -15,14 +15,14 @@ public class BoardService : IBoardService
         _context = toDoContext;
     }
 
-    public async Task<List<BoardDto>> GetAsynk()
+    public async Task<List<GetBoardDto>> GetAsynk()
     {
-        return await _context.Boards.Select(board => new BoardDto
+        return await _context.Boards.Select(board => new GetBoardDto
         {
             Id = board.Id,
             Name = board.Name,
             CreatedAt = board.CreatedAt,
-            ToDoItems = board.ToDoItems.Select(toDoItem => new ToDoItemDto
+            ToDoItems = board.ToDoItems.Select(toDoItem => new GetToDoItemDto
             {
                 Id = toDoItem.Id,
                 Title = toDoItem.Title,

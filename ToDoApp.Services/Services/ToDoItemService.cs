@@ -25,6 +25,25 @@ public class ToDoItemService : IToDoItemService
             .ToListAsync();
     }
 
+    public async Task<ToDoItem> GetByIdAsync(int id)
+    {
+        var item = await _context.ToDoItems
+            .Include(x => x.Assignee)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (item is null)
+        {
+            throw new ToDoItemNotFoundException(id);
+        }
+
+        if (item.AssigneeId != _currentUserService.AssigneeId)
+        {
+            throw new ToDoItemHasDifferentOwnerException();
+        }
+
+        return item;
+    }
+
     public async Task CreateAsync(CreateToDoItemDto createToDoItemDto)
     {
         var item = new ToDoItem
@@ -44,12 +63,12 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) 
+        if (item is null)
         {
             throw new ToDoItemNotFoundException(id);
         }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        if (item.AssigneeId != _currentUserService.AssigneeId)
         {
             throw new ToDoItemHasDifferentOwnerException();
         }
@@ -62,12 +81,12 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) 
+        if (item is null)
         {
             throw new ToDoItemNotFoundException(id);
         }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        if (item.AssigneeId != _currentUserService.AssigneeId)
         {
             throw new ToDoItemHasDifferentOwnerException();
         }
@@ -111,12 +130,12 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) 
+        if (item is null)
         {
             throw new ToDoItemNotFoundException(id);
         }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        if (item.AssigneeId != _currentUserService.AssigneeId)
         {
             throw new ToDoItemHasDifferentOwnerException();
         }
@@ -129,12 +148,12 @@ public class ToDoItemService : IToDoItemService
     {
         var item = await _context.ToDoItems.FindAsync(id);
 
-        if (item is null) 
+        if (item is null)
         {
             throw new ToDoItemNotFoundException(id);
         }
 
-        if (item.AssigneeId != _currentUserService.AssigneeId) 
+        if (item.AssigneeId != _currentUserService.AssigneeId)
         {
             throw new ToDoItemHasDifferentOwnerException();
         }

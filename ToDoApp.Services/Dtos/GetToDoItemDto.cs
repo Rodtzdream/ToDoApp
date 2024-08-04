@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Services.Dtos;
 
-public class ToDoItemDto
+public class GetToDoItemDto
 {
     public int Id { get; set; }
     public string Title { get; set; }

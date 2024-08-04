@@ -7,6 +7,8 @@ public interface IToDoItemService
 {
     Task<List<ToDoItem>> GetAsynk();
 
+    Task<ToDoItem> GetByIdAsync(int id);
+
     Task CreateAsync(CreateToDoItemDto createToDoItemDto);
 
     Task UpdateTitleAsync(int id, ChangeToDoItemTitleDto changeToDoItemTitleDto);

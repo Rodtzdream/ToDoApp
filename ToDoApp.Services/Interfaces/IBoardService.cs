@@ -5,7 +5,7 @@ namespace ToDoApp.Services.Interfaces;
 
 public interface IBoardService
 {
-    Task<List<BoardDto>> GetAsynk();
+    Task<List<GetBoardDto>> GetAsynk();
 
     Task CreateAsync(CreateBoardDto createBoardDto);
 }

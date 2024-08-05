@@ -7,5 +7,7 @@ public interface IBoardService
 {
     Task<List<GetBoardDto>> GetAsynk();
 
+    Task<GetBoardDto> GetByIdAsynk(int id);
+
     Task CreateAsync(CreateBoardDto createBoardDto);
 }

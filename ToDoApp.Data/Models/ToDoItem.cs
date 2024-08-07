@@ -18,7 +18,7 @@ public class ToDoItem
 
     public DateTime DueDate { get; set; }
 
-    public int AssigneeId { get; set; }
+    public string AssigneeId { get; set; }
 
     public User Assignee { get; set; }
 }

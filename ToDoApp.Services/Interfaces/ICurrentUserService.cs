@@ -2,5 +2,5 @@
 
 public interface ICurrentUserService
 {
-    int AssigneeId { get; }
+    string AssigneeId { get; }
 }

@@ -10,7 +10,7 @@ namespace ToDoApp.Service.Tests.Services;
 
 public class ToDoItemServiceTests
 {
-    private const int AssigneeId = 1;
+    private const string AssigneeId = "1";
 
     [Fact]
     public async Task GetByIdAsync_WithExistingItem_ReturnsItem()
@@ -24,7 +24,7 @@ public class ToDoItemServiceTests
         var assignee = new User
         {
             Id = AssigneeId,
-            Name = "Test Assignee"
+            UserName = "Test Assignee"
         };
 
         context.Users.Add(assignee);
@@ -109,7 +109,7 @@ public class ToDoItemServiceTests
             Description = "Description",
             StatusId = StatusEnum.ToDo,
             BoardId = 1,
-            AssigneeId = 2,
+            AssigneeId = "2",
         };
 
         context.ToDoItems.Add(item);

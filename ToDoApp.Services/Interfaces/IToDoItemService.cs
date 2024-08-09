@@ -11,13 +11,13 @@ public interface IToDoItemService
 
     Task CreateAsync(CreateToDoItemDto createToDoItemDto);
 
-    Task UpdateTitleAsync(int id, ChangeToDoItemTitleDto changeToDoItemTitleDto);
+    Task UpdateTitleAsync(ChangeToDoItemTitleDto changeToDoItemTitleDto);
 
-    Task UpdateDescriptionAsync(int id, ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto);
+    Task UpdateDescriptionAsync(ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto);
 
-    Task UpdateStatusAsync(int id, UpdateStatusDto newStatus);
+    Task UpdateStatusAsync(UpdateStatusDto newStatus);
 
-    Task UpdateAssigneeAsync(int id, string assigneeId);
+    Task UpdateAssigneeAsync(ChangeAssigneeDto newAssignee);
 
     Task DeleteAsync(int id);
 }

@@ -11,5 +11,5 @@ public class GetToDoItemDto
     public DateTime DueDate { get; set; }
     public StatusEnum StatusId { get; set; }
     public int BoardId { get; set; }
-    public int AssigneeId { get; set; }
+    public string AssigneeId { get; set; }
 }

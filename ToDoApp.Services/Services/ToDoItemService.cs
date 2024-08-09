@@ -126,7 +126,7 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAssigneeAsync(int id, int assigneeId)
+    public async Task UpdateAssigneeAsync(int id, string assigneeId)
     {
         var item = await _context.ToDoItems.FindAsync(id);
 

@@ -8,7 +8,7 @@ namespace ToDoApp.Service.Tests.Services;
 
 public class BoardServiceTests
 {
-    private const int AssigneeId = 1;
+    private const string AssigneeId = "1";
 
     [Fact]
     public async Task GetByIdAsync_WithExistingBoard_ReturnsBoard()

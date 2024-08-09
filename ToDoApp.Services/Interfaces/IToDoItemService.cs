@@ -17,7 +17,7 @@ public interface IToDoItemService
 
     Task UpdateStatusAsync(int id, UpdateStatusDto newStatus);
 
-    Task UpdateAssigneeAsync(int id, int assigneeId);
+    Task UpdateAssigneeAsync(int id, string assigneeId);
 
     Task DeleteAsync(int id);
 }

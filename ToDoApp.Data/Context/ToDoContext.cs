@@ -1,15 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data.Models;
 
 namespace ToDoApp.Data.Context;
 
-public class ToDoContext : DbContext
+public class ToDoContext : IdentityDbContext<User>
 {
     public DbSet<ToDoItem> ToDoItems { get; set; }
 
     public DbSet<Board> Boards { get; set; }
-
-    public DbSet<User> Users { get; set; }
 
     public ToDoContext(DbContextOptions<ToDoContext> options) : base(options)
     {

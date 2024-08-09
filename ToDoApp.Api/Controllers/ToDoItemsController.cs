@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ToDoApp.Data.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ToDoApp.Services.Dtos;
 using ToDoApp.Services.Interfaces;
 
 namespace ToDoApp.Api.Controllers
 {
+    [Authorize]
     [Route("api/to-do-items")]
     [ApiController]
     public class ToDoItemsController : ControllerBase
@@ -86,7 +87,7 @@ namespace ToDoApp.Api.Controllers
         }
 
         [HttpPut("{id}/assignee")]
-        public async Task<ActionResult> UpdateAssigneeAsynk(int id, int newAssignee)
+        public async Task<ActionResult> UpdateAssigneeAsynk(int id, string newAssignee)
         {
             await _service.UpdateAssigneeAsync(id, newAssignee);
             return Ok();

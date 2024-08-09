@@ -66,6 +66,7 @@ builder.Services.AddDbContext<ToDoContext>(options =>
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IBoardService, BoardService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

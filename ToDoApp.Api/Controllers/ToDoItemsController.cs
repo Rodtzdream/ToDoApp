@@ -65,31 +65,31 @@ namespace ToDoApp.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/title")]
-        public async Task<ActionResult> UpdateTitleAsynk(int id, ChangeToDoItemTitleDto changeToDoItemTitleDto)
+        [HttpPut("title")]
+        public async Task<ActionResult> UpdateTitleAsynk(ChangeToDoItemTitleDto changeToDoItemTitleDto)
         {
-            await _service.UpdateTitleAsync(id, changeToDoItemTitleDto);
+            await _service.UpdateTitleAsync(changeToDoItemTitleDto);
             return Ok();
         }
 
-        [HttpPut("{id}/description")]
-        public async Task<ActionResult> UpdateDescriptionAsynk(int id, ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto)
+        [HttpPut("description")]
+        public async Task<ActionResult> UpdateDescriptionAsynk(ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto)
         {
-            await _service.UpdateDescriptionAsync(id, changeToDoItemDescriptionDto);
+            await _service.UpdateDescriptionAsync(changeToDoItemDescriptionDto);
             return Ok();
         }
 
-        [HttpPut("{id}/status")]
-        public async Task<ActionResult> UpdateStatusAsynk(int id, UpdateStatusDto updateStatusDto)
+        [HttpPut("status")]
+        public async Task<ActionResult> UpdateStatusAsynk(UpdateStatusDto updateStatusDto)
         {
-            await _service.UpdateStatusAsync(id, updateStatusDto);
+            await _service.UpdateStatusAsync(updateStatusDto);
             return Ok();
         }
 
-        [HttpPut("{id}/assignee")]
-        public async Task<ActionResult> UpdateAssigneeAsynk(int id, string newAssignee)
+        [HttpPut("assignee")]
+        public async Task<ActionResult> UpdateAssigneeAsynk(ChangeAssigneeDto newAssignee)
         {
-            await _service.UpdateAssigneeAsync(id, newAssignee);
+            await _service.UpdateAssigneeAsync(newAssignee);
             return Ok();
         }
 

@@ -59,13 +59,13 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateTitleAsync(int id, ChangeToDoItemTitleDto changeToDoItemTitleDto)
+    public async Task UpdateTitleAsync(ChangeToDoItemTitleDto changeToDoItemTitleDto)
     {
-        var item = await _context.ToDoItems.FindAsync(id);
+        var item = await _context.ToDoItems.FindAsync(changeToDoItemTitleDto.Id);
 
         if (item is null)
         {
-            throw new ToDoItemNotFoundException(id);
+            throw new ToDoItemNotFoundException(changeToDoItemTitleDto.Id);
         }
 
         if (item.AssigneeId != _currentUserService.AssigneeId)
@@ -77,13 +77,13 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateDescriptionAsync(int id, ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto)
+    public async Task UpdateDescriptionAsync(ChangeToDoItemDescriptionDto changeToDoItemDescriptionDto)
     {
-        var item = await _context.ToDoItems.FindAsync(id);
+        var item = await _context.ToDoItems.FindAsync(changeToDoItemDescriptionDto.Id);
 
         if (item is null)
         {
-            throw new ToDoItemNotFoundException(id);
+            throw new ToDoItemNotFoundException(changeToDoItemDescriptionDto.Id);
         }
 
         if (item.AssigneeId != _currentUserService.AssigneeId)
@@ -95,13 +95,13 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateStatusAsync(int id, UpdateStatusDto newStatus)
+    public async Task UpdateStatusAsync(UpdateStatusDto newStatus)
     {
-        var item = await _context.ToDoItems.FindAsync(id);
+        var item = await _context.ToDoItems.FindAsync(newStatus.Id);
 
         if (item is null)
         {
-            throw new ToDoItemNotFoundException(id);
+            throw new ToDoItemNotFoundException(newStatus.Id);
         }
 
         if (item.AssigneeId != _currentUserService.AssigneeId)
@@ -126,13 +126,13 @@ public class ToDoItemService : IToDoItemService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAssigneeAsync(int id, string assigneeId)
+    public async Task UpdateAssigneeAsync(ChangeAssigneeDto newAssignee)
     {
-        var item = await _context.ToDoItems.FindAsync(id);
+        var item = await _context.ToDoItems.FindAsync(newAssignee.Id);
 
         if (item is null)
         {
-            throw new ToDoItemNotFoundException(id);
+            throw new ToDoItemNotFoundException(newAssignee.Id);
         }
 
         if (item.AssigneeId != _currentUserService.AssigneeId)
@@ -140,7 +140,7 @@ public class ToDoItemService : IToDoItemService
             throw new ToDoItemHasDifferentOwnerException();
         }
 
-        item.AssigneeId = assigneeId;
+        item.AssigneeId = newAssignee.AssigneeId;
         await _context.SaveChangesAsync();
     }
 

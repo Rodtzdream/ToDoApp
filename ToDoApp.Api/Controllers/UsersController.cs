@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ToDoApp.Data.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ToDoApp.Services.Dtos;
 using ToDoApp.Services.Interfaces;
 
 namespace ToDoApp.Api.Controllers;
 
+[Authorize]
 [Route("api/users")]
 [ApiController]
 public class UsersController : ControllerBase

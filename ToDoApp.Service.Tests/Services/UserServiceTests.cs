@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data.Context;
 using ToDoApp.Data.Models;
+using ToDoApp.Services.Exceptions;
 using ToDoApp.Services.Services;
 
 namespace ToDoApp.Service.Tests.Services;
@@ -65,6 +66,21 @@ public class UserServiceTests
         // Assert
         Assert.Equal(user.Id, result.Id);
         Assert.Equal(user.UserName, result.UserName);
+    }
+
+    [Fact]
+    public async Task GetUserByIdAsync_WithNonExistingUser_ThrowsUserNotFoundException()
+    {
+        // Arrange
+        var context = GetDbContext();
+
+        var service = new UserService(context);
+
+        // Act
+        Task act() => service.GetUserByIdAsync("1");
+
+        // Assert
+        await Assert.ThrowsAsync<UserNotFoundException>(act);
     }
 
     private ToDoContext GetDbContext()

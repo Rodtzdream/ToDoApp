@@ -11,6 +11,7 @@ namespace ToDoApp.Service.Tests.Services;
 public class ToDoItemServiceTests
 {
     private const string AssigneeId = "1";
+    private const int ItemId = 1;
 
     [Fact]
     public async Task GetByIdAsync_WithExistingItem_ReturnsItem()
@@ -87,9 +88,7 @@ public class ToDoItemServiceTests
         var service = new ToDoItemService(context, currentUserServiceMock.Object);
 
         // Act
-        Task act() => service.UpdateStatusAsync(1, new ToDoApp.Services.Dtos.UpdateStatusDto() { StatusId = StatusEnum.Done });
-
-        // Assert
+        Task act() => service.UpdateStatusAsync(new ToDoApp.Services.Dtos.UpdateStatusDto() { Id = ItemId, StatusId = StatusEnum.Done });
         await Assert.ThrowsAsync<ToDoItemNotFoundException>(act);
     }
 
@@ -119,7 +118,7 @@ public class ToDoItemServiceTests
         var service = new ToDoItemService(context, currentUserServiceMock.Object);
 
         // Act
-        Task act() => service.UpdateStatusAsync(item.Id, new ToDoApp.Services.Dtos.UpdateStatusDto() { StatusId = StatusEnum.Done });
+        Task act() => service.UpdateStatusAsync(new ToDoApp.Services.Dtos.UpdateStatusDto() { Id = item.Id, StatusId = StatusEnum.Done });
 
         // Assert
         await Assert.ThrowsAsync<ToDoItemHasDifferentOwnerException>(act);
@@ -153,7 +152,7 @@ public class ToDoItemServiceTests
         var service = new ToDoItemService(context, currentUserServiceMock.Object);
 
         // Act
-        await service.UpdateStatusAsync(item.Id, new ToDoApp.Services.Dtos.UpdateStatusDto() { StatusId = expectedStatus });
+        await service.UpdateStatusAsync(new ToDoApp.Services.Dtos.UpdateStatusDto() { Id = item.Id, StatusId = expectedStatus });
 
         // Assert
         var updatedItem = await context.ToDoItems.FindAsync(item.Id);
@@ -189,7 +188,7 @@ public class ToDoItemServiceTests
         var service = new ToDoItemService(context, currentUserServiceMock.Object);
 
         // Act
-        Task act() => service.UpdateStatusAsync(item.Id, new ToDoApp.Services.Dtos.UpdateStatusDto() { StatusId = newStatus });
+        Task act() => service.UpdateStatusAsync(new ToDoApp.Services.Dtos.UpdateStatusDto() { Id = item.Id, StatusId = newStatus });
 
         // Assert
         await Assert.ThrowsAsync<ToDoItemStatusNotFoundException>(act);
@@ -222,7 +221,7 @@ public class ToDoItemServiceTests
         var service = new ToDoItemService(context, currentUserServiceMock.Object);
 
         // Act
-        Task act() => service.UpdateStatusAsync(item.Id, new ToDoApp.Services.Dtos.UpdateStatusDto() { StatusId = (StatusEnum)status });
+        Task act() => service.UpdateStatusAsync(new ToDoApp.Services.Dtos.UpdateStatusDto() { Id = item.Id, StatusId = (StatusEnum)status });
 
         // Assert
         await Assert.ThrowsAsync<ToDoItemStatusNotFoundException>(act);

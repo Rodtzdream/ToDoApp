@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data.Context;
-using ToDoApp.Data.Models;
 using ToDoApp.Services.Dtos;
+using ToDoApp.Services.Exceptions;
 using ToDoApp.Services.Interfaces;
 
 namespace ToDoApp.Services.Services;
@@ -30,7 +30,7 @@ public class UserService : IUserService
 
         if (user is null)
         {
-            return null;
+            throw new UserNotFoundException();
         }
 
         return new GetUserDto

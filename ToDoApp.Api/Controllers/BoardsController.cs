@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data.Context;
 using ToDoApp.Services.Dtos;
 using ToDoApp.Services.Interfaces;
@@ -30,32 +29,14 @@ namespace ToDoApp.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GetBoardDto>> GetByIdAsynk(int id)
         {
-            var board = await _context.Boards
-                .Include(board => board.ToDoItems)
-                .FirstOrDefaultAsync(board => board.Id == id);
+            var board = await _service.GetByIdAsynk(id);
 
             if (board == null)
             {
                 return NotFound();
             }
 
-            return new GetBoardDto
-            {
-                Id = board.Id,
-                Name = board.Name,
-                CreatedAt = board.CreatedAt,
-                ToDoItems = board.ToDoItems.Select(toDoItem => new GetToDoItemDto
-                {
-                    Id = toDoItem.Id,
-                    Title = toDoItem.Title,
-                    Description = toDoItem.Description,
-                    CreatedAt = toDoItem.CreatedAt,
-                    DueDate = toDoItem.DueDate,
-                    StatusId = toDoItem.StatusId,
-                    BoardId = toDoItem.BoardId,
-                    AssigneeId = toDoItem.AssigneeId
-                }).ToList()
-            };
+            return board;
         }
 
         [HttpPost]

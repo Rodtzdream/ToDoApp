@@ -39,10 +39,9 @@ public class BoardService : IBoardService
 
     public async Task<GetBoardDto> GetByIdAsynk(int id)
     {
-
         var board = await _context.Boards
-            .Include(board => board.ToDoItems)
-            .FirstOrDefaultAsync(board => board.Id == id);
+                .Include(board => board.ToDoItems)
+                .FirstOrDefaultAsync(board => board.Id == id);
 
         if (board == null)
         {

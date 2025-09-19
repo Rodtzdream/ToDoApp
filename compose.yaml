@@ -1,0 +1,8 @@
+﻿services:
+  todoapp.api:
+    image: todoapp.api
+    build:
+      context: .
+      dockerfile: ToDoApp.Api/Dockerfile
+    ports:
+        - "5150:8080"

@@ -70,6 +70,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
+// Apply pending migrations at application startup
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ToDoContext>();
+    dbContext.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {

@@ -1,8 +1,19 @@
-﻿services:
-  todoapp.api:
-    image: todoapp.api
-    build:
-      context: .
-      dockerfile: ToDoApp.Api/Dockerfile
+﻿services:    
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
     ports:
-        - "5150:8080"
+      - "1433:1433"
+
+  api:
+    build: .
+    image: todoapp.api
+    ports:
+      - "5150:8080"
+    depends_on:
+      - db
+    environment:
+      ConnectionStrings__ToDoAppDb: ${TODOAPPDB}

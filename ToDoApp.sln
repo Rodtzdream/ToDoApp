@@ -13,7 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Service.Tests", "To
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE434D8D-6E3D-4F42-A530-75A61E286A9E}"
 	ProjectSection(SolutionItems) = preProject
-		compose.yaml = compose.yaml
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
 	EndProjectSection
 EndProject
 Global

@@ -10,7 +10,6 @@
 
   api:
     build: .
-    image: todoapp.api
     ports:
       - "5150:8080"
     depends_on:

@@ -46,7 +46,7 @@ This project was developed as part of a university educational practice organize
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Rodtzdream/ToDoApp.git
+    git clone https://github.com/Rodtzdream/ToDoApp.git
    ```
 2. Navigate to the project directory:
    ```bash
@@ -61,11 +61,11 @@ This project was developed as part of a university educational practice organize
    dotnet build
    ```
 5. Update the database connection string in `ToDoApp.Api/appsettings.Development.json`.
-```
-"ConnectionStrings": {
-    "ToDoAppDb": "...Your_Connection_String_Here..."
-  }
-```
+   ```
+   "ConnectionStrings": {
+       "ToDoAppDb": "...Your_Connection_String_Here..."
+     }
+   ```
 6. Apply database migrations (check that EF Core tools are installed):
    ```bash
    dotnet ef database update --project ToDoApp.Data --startup-project ToDoApp.Api
@@ -73,17 +73,21 @@ This project was developed as part of a university educational practice organize
    
 ### Running the Application Locally
 1. Run the application:
-2. ```bash
-   dotnet run --project ToDoApp.Api
+   ```bash
+    dotnet run --project ToDoApp.Api
    ```
-3. Open your browser and navigate to `https://localhost:5150/swagger` to access the Swagger UI.
+2. Open your browser and navigate to `https://localhost:5150/swagger` to access the Swagger UI.
 
 ### Running with Docker Compose
-1. Run the following command in the project directory where `docker-compose.yml` is located:
+1. Copy '.env.example' to '.env' and change the values as needed:
+   ```bash
+    cp .env.example .env
+   ```
+2. Run the following command in the project directory where `docker-compose.yml` is located:
    ```bash
    docker-compose up -d
    ```
-2. Access the application at `http://localhost:5150/swagger`.
+3. Access the application at `http://localhost:5150/swagger`.
 
 ## API Documentation
 The API is documented using Swagger (OpenAPI). Once the application is running, you can access the Swagger UI at:

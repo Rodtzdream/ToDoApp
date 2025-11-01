@@ -16,3 +16,4 @@
       - db
     environment:
       ConnectionStrings__ToDoAppDb: ${TODOAPPDB}
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}

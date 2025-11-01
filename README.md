@@ -41,8 +41,7 @@ This project was developed as part of a university educational practice organize
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Entity Framework Core Tools](https://docs.microsoft.com/en-us/ef/core/cli/dotnet)
 - [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-- [Docker](https://www.docker.com/get-started) (optional, for containerization)
-- [Docker Compose](https://docs.docker.com/compose/install/) (optional, for starting api along with database)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 ### Installation
 1. Clone the repository:
@@ -61,7 +60,7 @@ This project was developed as part of a university educational practice organize
    ```bash
    dotnet build
    ```
-5. Add the database connection string in `appsettings.json`.
+5. Update the database connection string in `ToDoApp.Api/appsettings.Development.json`.
 ```
 "ConnectionStrings": {
     "ToDoAppDb": "...Your_Connection_String_Here..."
@@ -75,20 +74,9 @@ This project was developed as part of a university educational practice organize
 ### Running the Application Locally
 1. Run the application:
 2. ```bash
-   dotnet run
+   dotnet run --project ToDoApp.Api
    ```
 3. Open your browser and navigate to `https://localhost:5150/swagger` to access the Swagger UI.
-
-### Running with Docker
-1. Build the Docker image:
-   ```bash
-   docker build -t todoapp.api .
-   ```
-2. Run the Docker container:
-   ```bash
-   docker run -d -p 5150:80 --name todoapp todoapp.api
-   ```
-3. Access the application at `http://localhost:5150/swagger`.
 
 ### Running with Docker Compose
 1. Run the following command in the project directory where `docker-compose.yml` is located:
